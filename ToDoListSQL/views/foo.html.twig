@@ -1,0 +1,33 @@
+<html>
+<head>
+    {# Appel du head contenant les balises de style, JS ... #}
+    {#{% include 'header.html.twig' %}#}
+</head>
+<body>
+    <h1>Bienvenue dans la To-do List</h1>
+
+    <p>Créer une nouvelle catégorie:</p>
+
+    <p>{{ UserProvider }}</p>
+
+    {# Formulaire d'ajout d'une catégorie #}
+    <form action="/categories" method="post">
+        <label for="name">Nom de la catégorie:</label>
+        <input id="name" name="name" type="text">
+
+        <button type="submit">Ajouter la catégorie</button>
+    </form>
+
+    {# On vérifie que la liste des catégories renvoyées au twig n'est pas vide #}
+    {% if categories is not empty %}
+        <p>Voici toutes les catégories:</p>
+        <ul>
+            {# Pour chaque categorie, on l'affiche grace à la méthode getName (pas besoin des '()' dans twig ) #}
+            {% for category in categories %}
+                <li><a href="/categories/{{ category.getId }}">{{ category.getName }}</a></li>
+            {% endfor %}
+    {% else %}
+        <p>Il n'y a pas encore de catégorie!</p>
+    {% endif %}
+</body>
+</html>

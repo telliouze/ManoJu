@@ -1,0 +1,28 @@
+<html>
+<head>
+    {% include 'header.html.twig' %}
+</head>
+
+<body>
+    <h1>Toutes les tâches</h1>
+    {% if tasks is not empty %}
+        <p>Voici toutes les tâches</p>
+        <ul>
+            {% for task in tasks %}
+                <li>{{ task.0 }} ({{ task.1 }})</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action='/tasks' method='post'>
+        <label for='description'>Libellé</label>
+        <input id='description' name='description' type='text'>
+
+        <button type='submit'>Ajouter la tâche</button>
+    </form>
+
+    <form action='/delete_tasks' method='post'>
+        <button type='submit'>Vider</button>
+    </form>
+</body>
+</html>

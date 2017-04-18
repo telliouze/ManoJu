@@ -1,0 +1,26 @@
+<html>
+<head>
+    {% include 'header.html.twig' %}
+</head>
+<body>
+    <h1>Modifier la catégorie: {{ category.getName }}</h1>
+    <form action='/categories/{{ category.getId }}' method='post'>
+        {# Avec le champ caché _method de valeur patch on peut utiliser la méthode PACTH grâce à Request::enableHttpMethodParameterOverride() #}
+        <input name="_method" type="hidden" value="patch">
+
+        <label for='name'>Nouveau nom:</label>
+        <input id='name' name='name' type='text'>
+
+        <button type='submit'>Mettre à jour</button>
+    </form>
+
+    {# Idem avec une methode DELETE #}
+    <form action='/categories/{{ category.getId }}' method='post'>
+        <input name="_method" type="hidden" value="delete">
+
+        <button type="submit">Supprimer cette catégorie</button>
+    </form>
+
+    <p><a href='/'>Home</a><p>
+</body>
+</html>
