@@ -4,7 +4,7 @@
 </head>
 <body>
     <h1>Modifier la catégorie: {{ category.getName }}</h1>
-    <form action='/categories/{{ category.getId }}' method='post'>
+    <form action='/todolist/categories/{{ category.getId }}' method='post'>
         {# Avec le champ caché _method de valeur patch on peut utiliser la méthode PACTH grâce à Request::enableHttpMethodParameterOverride() #}
         <input name="_method" type="hidden" value="patch">
 
@@ -15,12 +15,12 @@
     </form>
 
     {# Idem avec une methode DELETE #}
-    <form action='/categories/{{ category.getId }}' method='post'>
+    <form action='/todolist/categories/{{ category.getId }}' method='post'>
         <input name="_method" type="hidden" value="delete">
 
         <button type="submit">Supprimer cette catégorie</button>
     </form>
 
-    <p><a href='/'>Home</a><p>
+    <p><a href='/todolist'>Home</a><p>
 </body>
 </html>

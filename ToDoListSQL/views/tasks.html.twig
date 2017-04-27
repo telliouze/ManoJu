@@ -14,14 +14,14 @@
         </ul>
     {% endif %}
 
-    <form action='/tasks' method='post'>
+    <form action='/todolist/tasks' method='post'>
         <label for='description'>Libellé</label>
         <input id='description' name='description' type='text'>
 
         <button type='submit'>Ajouter la tâche</button>
     </form>
 
-    <form action='/delete_tasks' method='post'>
+    <form action='/todolist/delete_tasks' method='post'>
         <button type='submit'>Vider</button>
     </form>
 </body>

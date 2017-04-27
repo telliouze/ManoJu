@@ -13,17 +13,17 @@
         </ul>
     {% endif %}
 
-    <form action='/categories' method='post'>
+    <form action='/todolist/categories' method='post'>
         <label for='name'>Category Name</label>
         <input id='name' name='name' type='text'>
 
         <button type='submit'>Ajouter une catégorie</button>
     </form>
 
-    <form action='/delete_categories' method='post'>
+    <form action='/todolist/delete_categories' method='post'>
         <button type='submit'>Vider</button>
     </form>
     
-    <p><a href='/'>Home</a><p>
+    <p><a href='/todolist'>Home</a><p>
 </body>
 </html>

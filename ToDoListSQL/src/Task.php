@@ -39,7 +39,7 @@ class Task
     // Méthode d'ajout d'une catégorie en base
     function save()
     {
-        $executed = $GLOBALS['DB']->exec("INSERT INTO tasks (description, category_id) VALUES ('{$this->getDescription()}',{$this->getCategoryId()});");
+        $executed = $GLOBALS['DB']->query("INSERT INTO tasks (description, category_id) VALUES ('{$this->getDescription()}',{$this->getCategoryId()});");
         if ($executed){
             $this->id = $GLOBALS['DB']->lastInsertId();
             return true;
@@ -65,7 +65,7 @@ class Task
     // Méthode pour vider la table tasks
     static function deleteAll()
     {
-        $executed = $GLOBALS['DB']->exec("DELETE FROM tasks;");
+        $executed = $GLOBALS['DB']->query("DELETE FROM tasks;");
         if ($executed){
             return true;
         } else {

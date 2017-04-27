@@ -4,7 +4,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Doctrine\DBAL\Connection;
 
 
 // Défiinition de la classe catégorie
@@ -13,14 +12,12 @@ class Category
     // Elle est représentée par 2 propriétés: nom et id de catégorie
     private $name;
     private $id;
-    static $conn;
 
     // Constructeur de la classe
-    function __construct($name, $id=null, Connection $conn)
+    function __construct($name, $id=null)
     {
         $this->name = $name;
         $this->id = $id;
-        $this->conn = $conn;
     }
 
     // Getters et setters
@@ -55,14 +52,14 @@ class Category
     }
 
     // Méthode d'affichage de toutes les catégories
-    static function getAll(Connection $conn)
+    static function getAll()
     {
-        $returned_categories = $conn->executeQuery("SELECT * FROM categories;");
+        $returned_categories = $GLOBALS['DB']->query("SELECT * FROM categories;");
         $categories = array();
         foreach($returned_categories as $category){
             $name = $category['name'];
             $id = $category['id'];
-            $new_category = new Category($name, $id,$conn);
+            $new_category = new Category($name, $id);
             array_push($categories,$new_category);
         }
         return $categories;
@@ -71,7 +68,7 @@ class Category
     // Méthode de suppression de toutes les catégories
     static function deleteAll()
     {
-        $executed = $GLOBALS['DB']->exec("DELETE FROM categories;");
+        $executed = $GLOBALS['DB']->query("DELETE FROM categories;");
         if ($executed){
             return true;
         } else {
@@ -114,7 +111,7 @@ class Category
     // Méthode de modification du nom d'une catégorie
     function update($new_name)
     {
-        $executed = $GLOBALS['DB']->exec("UPDATE categories SET name = '{$new_name}' WHERE id = {$this->getId()};");
+        $executed = $GLOBALS['DB']->query("UPDATE categories SET name = '{$new_name}' WHERE id = {$this->getId()};");
         if($executed){
             $this->setName($new_name);
             return true;
@@ -127,12 +124,12 @@ class Category
     function delete()
     {
         // 1. On supprime la catégorie de la table categories
-        $executed = $GLOBALS['DB']->exec("DELETE FROM categories WHERE id = {$this->getId()};");
+        $executed = $GLOBALS['DB']->query("DELETE FROM categories WHERE id = {$this->getId()};");
         if(!$executed){
             return false;
         }
         // 2. On supprime toutes les tâches de cette catégorie dans la table tasks
-        $executed = $GLOBALS['DB']->exec("DELETE FROM tasks WHERE category_id = {$this->getId()};");
+        $executed = $GLOBALS['DB']->query("DELETE FROM tasks WHERE category_id = {$this->getId()};");
         if($executed){
             return true;
         } else {

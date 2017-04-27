@@ -15,7 +15,7 @@
         <p>Pas de tâche dans cette catégorie !</p>
     {% endif %}
 
-    <form action='/tasks' method='post'>
+    <form action='/todolist/tasks' method='post'>
         <input id="category_id" name="category_id" type="hidden" value="{{ category.getId() }}">
 
         <label for='description'>Tâche:</label>
@@ -24,8 +24,8 @@
         <button type='submit'>Ajouter</button>
     </form>
 
-    <p><a href="/categories/{{ category.getId }}/edit">Modifier cette catégorie</a></p>
+    <p><a href="/todolist/categories/{{ category.getId }}/edit">Modifier cette catégorie</a></p>
 
-    <p><a href="/">Home</a></p>
+    <p><a href="/todolist">Home</a></p>
 </body>
 </html>
